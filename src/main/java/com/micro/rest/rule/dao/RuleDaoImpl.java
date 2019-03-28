@@ -2,6 +2,9 @@ package com.micro.rest.rule.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.print.attribute.ResolutionSyntax;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,13 +49,19 @@ public class RuleDaoImpl implements RuleDao {
 			//store the keyspace for tenant
 			//get the keyspace for tenant 
 		}
+		resultSet = getRulesFromCassandra(tenant, ruleName, keySapce);
+		getRules(resultSet, rules);
+		return rules;
+	}
+
+	private ResultSet getRulesFromCassandra(String tenant, String ruleName, String keySapce) {
+		ResultSet resultSet;
 		if(null==ruleName) {
 			resultSet=Cassandra.select(cassandraConnector.getSession(),keySapce ,Constants.RULETABLE, "*", "tenant='"+tenant +"'");
 		}else {
 			resultSet=Cassandra.select(cassandraConnector.getSession(),keySapce ,Constants.RULETABLE, "*", "tenant='"+tenant +"' and " +"ruleName='"+ruleName+"'");
 		}
-		getRules(resultSet, rules);
-		return rules;
+		return resultSet;
 	}
 
 	private void getRules(ResultSet resultSet, List<Rule> rules) {
@@ -70,9 +79,20 @@ public class RuleDaoImpl implements RuleDao {
 	}
 
 	@Override
-	public Rule updateRule(String ruleName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Rule updateRule(Rule rule) {
+		String keySpace;
+		List<Rule> rules= new ArrayList<>(1);
+		if(rule.isIsprivate() && !rule.getTenant().equals(Constants.DOCKERXALL))	{
+		keySpace="";
+		}else {
+			keySpace=Constants.DOCKERKEYSPACE;
+		}
+		Cassandra.insertJSON(cassandraConnector.getSession(),Constants.DOCKERKEYSPACE,Constants.RULETABLE,gson.toJson(rule));
+		String tenant=rule.getTenant();
+		String ruleName=rule.getRuleName();
+		ResultSet resultSet=getRulesFromCassandra(tenant, ruleName, keySpace);
+		getRules(resultSet, rules);
+		return rules.get(0);
 	}
 
 }

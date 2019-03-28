@@ -10,5 +10,5 @@ public interface RuleController {
 public ResponseEntity<Rule> createRule(Rule rule);
 public ResponseEntity<List<Rule>> getRule(String tenant,String ruleName);
 //public ResponseEntity<List<Rule>> getAllRules(String tenant);
-public ResponseEntity<Rule> updateRule(String tenant,String ruleName,Rule rule);
+public ResponseEntity<Rule> updateRule(Rule rule);
 }

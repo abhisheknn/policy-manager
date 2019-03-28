@@ -30,7 +30,7 @@ public class RuleServiceImpl implements RuleService {
 //	}
 
 	@Override
-	public Rule updateRule(String ruleName) {
-		return ruleDao.updateRule(ruleName);
+	public Rule updateRule(Rule rule) {
+		return ruleDao.updateRule(rule);
 	}
 }

@@ -37,8 +37,8 @@ public class RuleControllerImpl implements RuleController{
 	}
 
 	@Override
-	@RequestMapping(method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Rule> updateRule(@RequestParam(value="tenant") String tenant,@RequestParam(value="ruleName") String ruleName,@RequestBody Rule rule) {
-		return ResponseEntity.ok(ruleservice.updateRule(ruleName));
+	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Rule> updateRule(@RequestBody Rule rule) {
+		return ResponseEntity.ok(ruleservice.updateRule(rule));
 	}
 }
