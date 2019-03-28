@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.print.attribute.ResolutionSyntax;
 
+import org.apache.cassandra.db.Keyspace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,15 +28,33 @@ public class RuleDaoImpl implements RuleDao {
 	
 	@Override
 	public Rule createRule(Rule rule) {
+		String keySpace =null;
 		if(rule.isIsprivate()) {
-			//store the keyspace for tenant
-			//get the keyspace for tenant 
-			//
+			
+			keySpace = getKeySpaceForTenant(rule.getTenant());
+			
 		}else {
 			rule.setTenant(Constants.DOCKERXALL);
-		Cassandra.insertJSON(cassandraConnector.getSession(),Constants.DOCKERKEYSPACE ,Constants.RULETABLE, gson.toJson(rule));
+			keySpace=Constants.DOCKERKEYSPACE;
 		}
+		if(keySpace!=null) 
+		Cassandra.insertJSON(cassandraConnector.getSession(),keySpace,Constants.RULETABLE, gson.toJson(rule));
 		return rule;
+	}
+
+	private String getKeySpaceForTenant(String tenant) {
+		String keySpace = null;
+		ResultSet resultSet = null;
+		if(null!=tenant) {
+			resultSet=Cassandra.select(cassandraConnector.getSession(),Constants.DOCKERKEYSPACE,Constants.TENANTTABLE,Constants.CASSANDRAKEYSPACE,"tenantid='"+tenant+"'");
+		List<Row> rows=resultSet.all();
+			for(Row row:rows) {
+				keySpace=row.getString(Constants.CASSANDRAKEYSPACE);
+			}
+			}
+		else {
+		}
+		return keySpace;
 	}
 
 	@Override
@@ -46,8 +65,7 @@ public class RuleDaoImpl implements RuleDao {
 		if(tenant.equals(Constants.DOCKERXALL)) {
 			keySapce=Constants.DOCKERKEYSPACE;
 		} else {
-			//store the keyspace for tenant
-			//get the keyspace for tenant 
+			keySapce=getKeySpaceForTenant(tenant);
 		}
 		resultSet = getRulesFromCassandra(tenant, ruleName, keySapce);
 		getRules(resultSet, rules);
