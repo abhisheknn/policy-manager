@@ -1,4 +1,4 @@
-package com.micro.rest.rule.controller;
+package com.micro.rule.controller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.micro.rest.rule.Rule;
-import com.micro.rest.rule.service.RuleService;
+import com.micro.pojo.Rule;
+import com.micro.rule.service.RuleService;
 
 @RestController
 @RequestMapping("/rule")

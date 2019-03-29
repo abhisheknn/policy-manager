@@ -1,4 +1,4 @@
-package com.micro.rest.rule;
+package com.micro.pojo;
 
 import java.util.HashMap;
 import java.util.Map;

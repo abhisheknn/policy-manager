@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.micro.cassandra.Cassandra;
 import com.micro.constant.AppConstants.ReplicationStrategy;
 import com.micro.policy.common.Constants;
-import com.micro.rest.rule.Rule;
+import com.micro.pojo.Rule;
 
 @Component
 public class CassandraConnector extends com.micro.cassandra.CassandraConnector {

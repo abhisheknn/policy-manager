@@ -1,12 +1,12 @@
-package com.micro.rest.rule.service;
+package com.micro.rule.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.micro.rest.rule.Rule;
-import com.micro.rest.rule.dao.RuleDao;
+import com.micro.pojo.Rule;
+import com.micro.rule.dao.RuleDao;
 
 @Component
 public class RuleServiceImpl implements RuleService {
