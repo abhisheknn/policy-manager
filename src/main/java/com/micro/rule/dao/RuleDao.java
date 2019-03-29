@@ -1,14 +1,12 @@
-package com.micro.rest.rule.service;
+package com.micro.rule.dao;
 
 import java.util.List;
 
-import com.micro.rest.rule.Rule;
+import com.micro.pojo.Rule;
 
-public interface RuleService {
-
+public interface RuleDao {
 	public Rule createRule(Rule rule);
 	public List<Rule> getRule(String tenant,String ruleName);
 	//public List<Rule> getAllRules(String tenant);
 	public Rule updateRule(Rule rule);
-	
 }

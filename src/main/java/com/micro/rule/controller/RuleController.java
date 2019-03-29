@@ -1,10 +1,10 @@
-package com.micro.rest.rule.controller;
+package com.micro.rule.controller;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.micro.rest.rule.Rule;
+import com.micro.pojo.Rule;
 
 public interface RuleController {
 public ResponseEntity<Rule> createRule(Rule rule);
