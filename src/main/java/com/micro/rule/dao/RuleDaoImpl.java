@@ -14,23 +14,24 @@ import com.datastax.driver.core.Row;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.micro.cassandra.Cassandra;
-import com.micro.policy.cassandra.CassandraConnector;
+import com.micro.cassandra.CassandraConnector;
 import com.micro.policy.common.Constants;
+import com.micro.util.CassandraUtil;
 import com.micro.pojo.Rule;
 
 @Component
 public class RuleDaoImpl implements RuleDao {
 
+	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	
 	@Autowired
 	CassandraConnector cassandraConnector;
-
-	private Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
+	
 	@Override
 	public Rule createRule(Rule rule) {
 		String keySpace = null;
-		if (rule.isIsprivate()) {
-			keySpace = getKeySpaceForTenant(rule.getTenant());
+		if (rule.getIsPrivate()) {
+			keySpace = CassandraUtil.getKeySpaceForTenant(cassandraConnector.getSession(),rule.getTenant());
 		} else {
 			rule.setTenant(Constants.DOCKERXALL);
 			keySpace = Constants.DOCKERKEYSPACE;
@@ -47,32 +48,19 @@ public class RuleDaoImpl implements RuleDao {
 				Rule.getColoumnsForRuleTable());
 	}
 
-	private String getKeySpaceForTenant(String tenant) {
-		String keySpace = null;
-		ResultSet resultSet = null;
-		if (null != tenant) {
-			resultSet = Cassandra.select(cassandraConnector.getSession(), Constants.DOCKERKEYSPACE,
-					Constants.TENANTTABLE, Constants.CASSANDRAKEYSPACE, "tenantid='" + tenant + "'");
-			List<Row> rows = resultSet.all();
-			for (Row row : rows) {
-				keySpace = row.getString(Constants.CASSANDRAKEYSPACE);
-			}
-		} else {
-		}
-		return keySpace;
-	}
+	
 
 	@Override
 	public List<Rule> getRule(String tenant, String ruleName) {
 		ResultSet resultSet;
 		List<Rule> rules = new ArrayList<>();
-		String keySapce = null;
+		String keySpace = null;
 		if (tenant.equals(Constants.DOCKERXALL)) {
-			keySapce = Constants.DOCKERKEYSPACE;
+			keySpace = Constants.DOCKERKEYSPACE;
 		} else {
-			keySapce = getKeySpaceForTenant(tenant);
+			keySpace = CassandraUtil.getKeySpaceForTenant(cassandraConnector.getSession(),tenant);
 		}
-		resultSet = getRulesFromCassandra(tenant, ruleName, keySapce);
+		resultSet = getRulesFromCassandra(tenant, ruleName, keySpace);
 		getRules(resultSet, rules);
 		return rules;
 	}
@@ -93,7 +81,7 @@ public class RuleDaoImpl implements RuleDao {
 		List<Row> rows = resultSet.all();
 		for (Row row : rows) {
 			Rule rule = new Rule();
-			rule.setIsprivate(row.getBool("isPrivate"));
+			rule.setIsPrivate(row.getBool("isPrivate"));
 			rule.setRuleExpression(row.getString("ruleExpression"));
 			rule.setRuleInterpreter(row.getString("ruleInterpreter"));
 			rule.setTenant(row.getString("tenant"));
@@ -107,7 +95,7 @@ public class RuleDaoImpl implements RuleDao {
 	public Rule updateRule(Rule rule) {
 		String keySpace;
 		List<Rule> rules = new ArrayList<>(1);
-		if (rule.isIsprivate() && !rule.getTenant().equals(Constants.DOCKERXALL)) {
+		if (rule.getIsPrivate() && !rule.getTenant().equals(Constants.DOCKERXALL)) {
 			keySpace = "";
 		} else {
 			keySpace = Constants.DOCKERKEYSPACE;
