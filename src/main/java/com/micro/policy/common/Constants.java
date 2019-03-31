@@ -9,5 +9,7 @@ public class Constants {
 	public static final String TENANTTABLE = "tenant";
 	public static final String DOCKERXALL = "dockerx_all";
 	public static final String CASSANDRAKEYSPACE = "cassandrakeyspace";
+	public static final String POLICYTABLE = "policy";
+	public static final String RULETYPE = "ruleType";
 
 }

@@ -9,7 +9,8 @@ public class Rule {
 	String ruleName;
 	String tenant;
     String ruleType;
-    boolean isprivate;
+    boolean isPrivate;
+    
     
     
 	
@@ -28,11 +29,11 @@ public class Rule {
 		this.ruleType = ruleType;
 	}
 	
-	public boolean isIsprivate() {
-		return isprivate;
+	public boolean getIsPrivate() {
+		return isPrivate;
 	}
-	public void setIsprivate(boolean isprivate) {
-		this.isprivate = isprivate;
+	public void setIsPrivate(boolean isprivate) {
+		this.isPrivate = isprivate;
 	}
 	public String getRuleName() {
 		return ruleName;
