@@ -27,6 +27,10 @@ public class PolicyDaoImpl implements PolicyDao {
 	@Autowired
 	CassandraConnector cassandraConnector;
 	
+	public void setCassandraConnector(CassandraConnector cassandraConnector) {
+		this.cassandraConnector = cassandraConnector;
+	}
+
 	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 	Type listOfMapType = new TypeToken<List<Map<String, String>>>() {
 	}.getType();
