@@ -10,12 +10,12 @@ import com.datastax.driver.core.Session;
 
 public class CassandraUtil {
 
-	public static String getKeySpaceForTenant(Session session,String tenant) {
+	public static String getKeySpaceForTenant(Session session, String tenant) {
 		String keySpace = null;
 		ResultSet resultSet = null;
 		if (null != tenant) {
-			resultSet = Cassandra.select(session, Constants.DOCKERKEYSPACE,
-					Constants.TENANTTABLE, Constants.CASSANDRAKEYSPACE, "tenantid='" + tenant + "'");
+			resultSet = Cassandra.select(session, Constants.DOCKERKEYSPACE, Constants.TENANTTABLE,
+					Constants.CASSANDRAKEYSPACE, "tenantid='" + tenant + "'");
 			List<Row> rows = resultSet.all();
 			for (Row row : rows) {
 				keySpace = row.getString(Constants.CASSANDRAKEYSPACE);
@@ -24,5 +24,5 @@ public class CassandraUtil {
 		}
 		return keySpace;
 	}
-	
+
 }

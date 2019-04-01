@@ -141,6 +141,15 @@
   <version>3.6.0</version>
 </dependency>
 
+<!-- Unit testing Spring dependencies with environment variables-->
+
+<dependency>
+  <groupId>com.github.stefanbirkner</groupId>
+  <artifactId>system-rules</artifactId>
+  <version>1.19.0</version>
+  <scope>test</scope>
+</dependency>
+
 </dependencies>
 	
 

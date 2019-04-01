@@ -19,27 +19,28 @@ import com.micro.policy.service.PolicyService;
 @RestController
 @RequestMapping("/policy")
 public class PolicyControllerImpl implements PolicyController {
-	
+
 	@Autowired
 	PolicyService policyService;
-	
+
 	@Override
-	@RequestMapping(value="/create",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Policy> createPolicy(@RequestBody Policy policy) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(policyService.createPolicy(policy));
-		
+
 	}
 
 	@Override
-	@RequestMapping(method=RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Policy>> getPolicy(@RequestParam(value="tenantid",required=false) String tenantid,@RequestParam(value="policyName",required=false) String policyName) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(policyService.getPolicy(tenantid,policyName));
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Policy>> getPolicy(@RequestParam(value = "tenantid", required = false) String tenantid,
+			@RequestParam(value = "policyName", required = false) String policyName) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(policyService.getPolicy(tenantid, policyName));
 	}
 
 	@Override
-	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Policy> updatePolicy(@RequestBody Policy policy) {
-		
+
 		return null;
 	}
 }

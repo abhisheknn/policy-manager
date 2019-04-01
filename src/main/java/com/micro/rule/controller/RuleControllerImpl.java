@@ -18,26 +18,27 @@ import com.micro.rule.service.RuleService;
 
 @RestController
 @RequestMapping("/rule")
-public class RuleControllerImpl implements RuleController{
-	
+public class RuleControllerImpl implements RuleController {
+
 	@Autowired
-	RuleService  ruleservice;
-	
+	RuleService ruleservice;
+
 	@Override
-	@RequestMapping(value="/create",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin(origins = "*")
 	public ResponseEntity<Rule> createRule(@RequestBody Rule rule) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(ruleservice.createRule(rule));
 	}
 
 	@Override
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Rule>> getRule(@RequestParam(required=false,value="tenant") String tenant,@RequestParam(required=false,value="ruleName") String ruleName) {
-		return ResponseEntity.ok(ruleservice.getRule(tenant,ruleName));
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Rule>> getRule(@RequestParam(required = false, value = "tenant") String tenant,
+			@RequestParam(required = false, value = "ruleName") String ruleName) {
+		return ResponseEntity.ok(ruleservice.getRule(tenant, ruleName));
 	}
 
 	@Override
-	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Rule> updateRule(@RequestBody Rule rule) {
 		return ResponseEntity.ok(ruleservice.updateRule(rule));
 	}
