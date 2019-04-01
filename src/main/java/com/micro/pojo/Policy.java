@@ -1,5 +1,6 @@
 package com.micro.pojo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,12 @@ import com.micro.codec.RuleTypeCodec;
 import com.micro.policy.common.Constants;
 
 public class Policy {
-	private List<Rule> rules;
+	private List<Rule> rules= new ArrayList<>();
 	private String createdByTenant;
-	private List<Map<String, String>> machines;
-	private List<String> groups;
-	private List<String> tags;
-	private List<String> tenants;
+	private List<Map<String, String>> machines= new ArrayList<>();
+	private List<String> groups= new ArrayList<>();
+	private List<String> tags= new ArrayList<>();
+	private List<String> tenants= new ArrayList<>();
 	private boolean isPrivate;
 	private String policyName;
 	private boolean isActive;
@@ -129,4 +130,74 @@ public class Policy {
 		RuleTypeCodec ruleCodec = new RuleTypeCodec(ruleTypeCodec, Rule.class);
 		codecRegistry.register(ruleCodec);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdByTenant == null) ? 0 : createdByTenant.hashCode());
+		result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + (isPrivate ? 1231 : 1237);
+		result = prime * result + ((machines == null) ? 0 : machines.hashCode());
+		result = prime * result + ((policyName == null) ? 0 : policyName.hashCode());
+		result = prime * result + ((rules == null) ? 0 : rules.hashCode());
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		result = prime * result + ((tenants == null) ? 0 : tenants.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Policy other = (Policy) obj;
+		if (createdByTenant == null) {
+			if (other.createdByTenant != null)
+				return false;
+		} else if (!createdByTenant.equals(other.createdByTenant))
+			return false;
+		if (groups == null) {
+			if (other.groups != null)
+				return false;
+		} else if (!groups.equals(other.groups))
+			return false;
+		if (isActive != other.isActive)
+			return false;
+		if (isPrivate != other.isPrivate)
+			return false;
+		if (machines == null) {
+			if (other.machines != null)
+				return false;
+		} else if (!machines.equals(other.machines))
+			return false;
+		if (policyName == null) {
+			if (other.policyName != null)
+				return false;
+		} else if (!policyName.equals(other.policyName))
+			return false;
+		if (rules == null) {
+			if (other.rules != null)
+				return false;
+		} else if (!rules.equals(other.rules))
+			return false;
+		if (tags == null) {
+			if (other.tags != null)
+				return false;
+		} else if (!tags.equals(other.tags))
+			return false;
+		if (tenants == null) {
+			if (other.tenants != null)
+				return false;
+		} else if (!tenants.equals(other.tenants))
+			return false;
+		return true;
+	}
+	
+	
+	
 }
