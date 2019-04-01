@@ -13,22 +13,21 @@ public class PolicyServiceImpl implements PolicyService {
 
 	@Autowired
 	PolicyDao policyDao;
-	
-	
+
 	@Override
 	public Policy createPolicy(Policy policy) {
 		return policyDao.createPolicy(policy);
 	}
 
 	@Override
-	public List<Policy> getPolicy(String tenant,String policyName) {
-		return policyDao.getPolicy(tenant,policyName);
+	public List<Policy> getPolicy(String tenant, String policyName) {
+		return policyDao.getPolicy(tenant, policyName);
 	}
 
 	@Override
-	public Policy updatePolicy() {
-		// TODO Auto-generated method stub
-		return null;
+	public Policy updatePolicy(Policy policy) {
+		return policyDao.updatePolicy(policy);
+
 	}
 
 }

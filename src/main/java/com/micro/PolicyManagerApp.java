@@ -7,10 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.micro.cassandra.Cassandra;
 
 @SpringBootApplication
-public class PolicyManagerApp 
-{
-	public static void main( String[] args )
-    {
-    	SpringApplication.run(PolicyManagerApp.class, args);
-    }
+public class PolicyManagerApp {
+	public static void main(String[] args) {
+		SpringApplication.run(PolicyManagerApp.class, args);
+	}
 }

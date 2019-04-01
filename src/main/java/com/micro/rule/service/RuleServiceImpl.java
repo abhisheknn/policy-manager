@@ -13,21 +13,21 @@ public class RuleServiceImpl implements RuleService {
 
 	@Autowired
 	RuleDao ruleDao;
-	
+
 	@Override
 	public Rule createRule(Rule rule) {
 		return ruleDao.createRule(rule);
 	}
 
 	@Override
-	public List<Rule> getRule(String tenant,String ruleName) {
-		return ruleDao.getRule(tenant,ruleName);
+	public List<Rule> getRule(String tenant, String ruleName) {
+		return ruleDao.getRule(tenant, ruleName);
 	}
 
-//	@Override
-//	public List<Rule> getAllRules(String tenant) {
-//		return ruleDao.getAllRules(tenant);
-//	}
+	// @Override
+	// public List<Rule> getAllRules(String tenant) {
+	// return ruleDao.getAllRules(tenant);
+	// }
 
 	@Override
 	public Rule updateRule(Rule rule) {
