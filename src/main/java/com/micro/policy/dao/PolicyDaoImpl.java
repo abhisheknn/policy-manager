@@ -15,6 +15,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.micro.cassandra.Cassandra;
+import com.micro.client.RestClient;
 import com.micro.policymanager.cassandra.CassandraConnector;
 import com.micro.pojo.Policy;
 import com.micro.pojo.Rule;
@@ -26,6 +27,8 @@ public class PolicyDaoImpl implements PolicyDao {
 
 	@Autowired
 	CassandraConnector cassandraConnector;
+	
+	
 	
 	public void setCassandraConnector(CassandraConnector cassandraConnector) {
 		this.cassandraConnector = cassandraConnector;
@@ -55,6 +58,8 @@ public class PolicyDaoImpl implements PolicyDao {
 		Cassandra.insertJSON(cassandraConnector.getSession(), keySpace, Constants.POLICYTABLE, gson.toJson(policy));
 		return policy;
 	}
+
+	
 
 	private void createPolicyTable(Policy policy, String keySpace) {
 		Cassandra.createType(cassandraConnector.getSession(), keySpace, Constants.RULETYPE,

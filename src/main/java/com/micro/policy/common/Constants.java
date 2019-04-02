@@ -12,5 +12,6 @@ public class Constants {
 	public static final String CASSANDRAKEYSPACE = "cassandrakeyspace";
 	public static final String POLICYTABLE = "policy";
 	public static final String RULETYPE = "ruleType";
+	public static final String C2SYSTEMURL = "http://"+System.getenv("C2SYSTEMURL")+"/command/send";
 
 }
